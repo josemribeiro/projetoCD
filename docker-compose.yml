@@ -1,0 +1,26 @@
+services:
+  web-server:
+    build: ./web-server
+    ports:
+      - "80:80"
+    volumes:
+      - ./web-server/src/private:/data
+      - ./shared-images:/app/static/images
+    depends_on:
+      - db-server
+    networks:
+      - backend
+  
+  db-server:
+    build: ./db-server
+    ports:
+      - "22349:22349"
+    volumes:
+      - ./db-server/src/private:/app/private
+      - ./shared-images:/app/static/images
+    networks:
+      - backend
+networks:
+  backend:
+
+# docker-compose up --build --remove-orphans
