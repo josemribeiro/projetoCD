@@ -1,0 +1,11 @@
+.tabela_Main{
+    text-align: center;
+    font-family: 'Courier New', Courier, monospace;
+    color: black;
+    background-color:white;
+    
+}
+
+.tabela_Header{
+    background-color: rgb(255, 255, 255);
+}

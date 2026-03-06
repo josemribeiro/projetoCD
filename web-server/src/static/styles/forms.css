@@ -1,0 +1,110 @@
+/* Form styles */
+form {
+    margin: auto;
+    max-width: 400px;
+    margin-top: 7%;
+    background: #fff;
+    padding: 2%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#form-titulo {
+    text-align: center;
+    margin-bottom: 20px; 
+    color: #333; 
+}
+
+form p {
+    margin-bottom: 15px;
+    margin-right: 5%;
+    margin-left: 1%;
+    font-size: 16px;
+}
+
+input, select {
+    width: 100%;
+    padding: 10px;
+    margin-bottom: 15px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-sizing: border-box;
+    font-size: 1rem;
+    transition: border-color 0.3s ease;
+}
+
+input[type="radio"] {
+    width: auto;
+    margin-right: 5px;
+}
+
+form input[type="submit"],
+form input[type="reset"] {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+#criar-conta{
+    text-align: center;
+}
+
+form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+}
+
+.submit-reset {
+    justify-content: center;
+}
+
+form input[type="reset"] {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="reset"]:hover {
+    background-color: #c82333;
+    transition: background-color 0.3s ease;
+}
+
+form fieldset {
+    border: none;
+    padding: 0;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}
+
+legend {
+    font-size: 1.5rem;
+    font-weight: bold;
+    margin-bottom: 15px;
+    font-weight: bold;
+    color: #333;
+}
+
+label {
+    font-size: 1rem;
+    font-weight: bold;
+    margin-bottom: 5px;
+    color: #555;
+}
+
+.submit-reset {
+    margin-left: 25%;
+}
+
+a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}

@@ -1,0 +1,40 @@
+body {
+    background-color: #f4f4f4;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: center;
+    background-attachment: fixed;
+    font-family: 'Nunito', Arial, Helvetica, sans-serif;
+    color: #333; 
+    margin: 0;
+    padding: 0;
+}
+
+.video-caixa {
+    display: flex;
+    flex-direction: column;
+    position: fixed;
+    top: 23%;
+    border-radius: 15px;
+    left: 23%;
+    box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    background-color: #fff;
+    width: 50%; 
+    max-width: 960px;
+    border: 5px solid black;
+    transition: transform 0.3s ease;
+}
+
+.video {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 60vh;
+    width: 100%;
+    background-color: #333; 
+    border-radius: 10px;
+    margin: 15px 0;
+    overflow: hidden;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}

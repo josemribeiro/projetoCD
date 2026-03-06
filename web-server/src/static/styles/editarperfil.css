@@ -1,0 +1,124 @@
+body {
+    justify-content: center;
+}
+
+#formEPT {
+    margin: auto;
+    max-width: 400px;
+    margin-top: 7%;
+    background: 2px solid #9b9898;
+    padding: 2%;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+#form-titulo {
+    text-align: center;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+b p {
+    margin-bottom: 10px;
+}
+
+/* Tabelas da morada */
+table {
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+td {
+    padding: 8px;
+}
+
+select, input[type="text"], input[type="file"],input[type="number"] {
+    width: 100%;
+    padding: 8px;
+    margin-top: 5px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    transition: border-color 0.3s ease;
+}
+
+/* Alinhar os botões */
+#formEPT div {
+    text-align: center;
+    margin-top: 20px;
+}
+
+form input[type="submit"],
+form input[type="reset"] {
+    padding: 10px 20px;
+    margin: 10px 5px;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+form input[type="submit"] {
+    background-color: #007bff;
+    color: #fff;
+}
+
+
+form input[type="reset"] {
+    background-color: #dc3545;
+    color: #fff;
+}
+
+form input[type="submit"]:hover {
+    background-color: #0056b3;
+    transition: background-color 0.3s ease;
+}
+
+form input[type="reset"]:hover {
+    background-color: #c82333;
+    transition: background-color 0.3s ease;
+}
+
+/* Secção de dados atuais */
+#dadosAtuais-titulo {
+    font-weight: bold;
+    color: #007BFF;
+    text-decoration: none;
+    padding-top: 0;
+}
+
+#dadosAtuais {
+    margin-bottom: 20px;
+}
+
+#dadosAtuais b {
+    font-weight: bold;
+}
+
+a {
+    color: #007BFF;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.botao-delete {
+    background-color: #dc3545;
+    color: #fff;
+    padding: 5px 10px;
+    margin: auto;
+    border: none;
+    border-radius: 4px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.botao-delete:hover {
+    background-color: #c82333;
+    transition: background-color 0.3s ease;
+}
+
+.apagar-conta {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 0.5%; 
+}
