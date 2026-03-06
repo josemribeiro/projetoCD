@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<meta title="Auto-Chaço">
+
+<html lang="pt">
+
+<head>
+	<title>Procura Veículos</title>
+	<script type="module" src="/static/scripts/main.js"></script>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/procura.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/navbar.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/GlobalStyle.css">
+</head>
+
+<body onload="updatedLoggedInState()">
+	<nav class="navbar">
+		<div class="elementos-esquerda">
+			<ul>
+				<li><a href="/"><i class="fa-solid fa-house"></i></a></li>
+				<li><a href="/formAddCarro"><i class="fa-solid fa-plus"></i> Adicionar Chaço</a></li>
+				<li><a href="/formProcuraCarro"><i class="fa-solid fa-magnifying-glass"></i> Procurar Chaço</a></li>
+				<li><a href="/dashboard-cameras"><i class="fa-solid fa-video"></i> Dashboard Câmaras</a></li>
+			</ul>
+		</div>
+		<div class="elementos-direita">
+			<ul id="userOptions">
+				<li id="registarOp"><a href="/formRegistoT">Criar Conta</a></li>
+				<li id="loginOp"><a href="/formLogin" style="text-decoration:none">Login</a></li>
+				<li id="menuPerfil" class="dropdown" style="display: none;">
+					<button>Meu Perfil</button>
+					<div class="content">
+						<a href="/formEditarPerfil"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
+						<a href="/meusAnuncios"><i class="fa-solid fa-car"></i> Meus Anúncios</a>
+						<a href="/doLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+					</div>
+				</li>
+			</ul>
+		</div>
+	</nav>
+	<form action="/doProcuraCarro" method="POST" name="FormProcura" id="formPC"
+		onsubmit="return validarFormPesquisa(event)">
+		<div style="text-align: center">
+			<b>
+				<p>Procurar:</p>
+				<label for="stand">Marca</label>
+				<input type="radio" id="marca" name="opcao" value="Marca" required>
+
+				<label for="sozinho">Modelo</label>
+				<input type="radio" id="modelo" name="opcao" value="Modelo">
+
+				<label for="sozinho">Descrição</label>
+				<input type="radio" id="descricao" name="opcao" value="Descricao">
+
+				<label for="sozinho">Combustível</label>
+				<input type="radio" id="combustivel" name="opcao" value="Combustivel">
+
+				<label for="sozinho">Caixa</label>
+				<input type="radio" id="caixa" name="opcao" value="Caixa">
+
+				<br><br>
+				<input type="text" name="textoProcurar" id="textoProcurar">
+				<select name="selectProcura" id="selectProcura" style="display: none;"></select>
+			</b>
+		</div>
+		<div class="buttons">
+			<input type="submit" name="Submit" value="Procurar" onclick="resetPesquisa()">
+			<input type="reset" name="Reset" value="Limpar">
+		</div>
+	</form>
+</body>
+
+</html>

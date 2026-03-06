@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/forms.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/GlobalStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/mapas.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/navbar.css">
+
+    <script type="module" src="/static/scripts/main.js"></script>
+    <!-- Cenas para usar os mapas -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <title>Adicionar Chaço</title>
+</head>
+
+<body onload="updatedLoggedInState()">
+   <nav class="navbar">
+        <div class="elementos-esquerda">
+            <ul>
+                <li><a href="/"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="/formAddCarro"><i class="fa-solid fa-plus"></i> Adicionar Chaço</a></li>
+                <li><a href="/formProcuraCarro"><i class="fa-solid fa-magnifying-glass"></i> Procurar Chaço</a></li>
+                <li><a href="/dashboard-cameras"><i class="fa-solid fa-video"></i> Dashboard Câmaras</a></li>
+            </ul>
+        </div>
+        <div class="elementos-direita">
+            <ul id="userOptions">
+                <li id="registarOp"><a href="/formRegistoT">Criar Conta</a></li>
+                <li id="loginOp"><a href="/formLogin" style="text-decoration:none">Login</a></li>
+                <li id="menuPerfil" class="dropdown" style="display: none;">
+                    <button>Meu Perfil</button>
+                    <div class="content">
+                        <a href="/formEditarPerfil"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
+                        <a href="/meusAnuncios"><i class="fa-solid fa-car"></i> Meus Anúncios</a>
+                        <a href="/doLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <form action="/doAddCarro" method="post" name="addCarro" id="addCarro" onsubmit="return validarFormAnuncio(event) "
+        enctype="multipart/form-data">
+        <fieldset>
+            <legend id="criar-conta"><b>Adicionar um novo Chaço </b></legend>
+            <label for="marca"><b>Marca</b></label>
+            <select size="1" onchange="SelectMarcaChange(event)" name="marca" id="marca" required></select>
+
+            <label for="modelo"><b>Modelo</b></label>
+            <select size="1" name="modelo" id="modelo" disabled required></select>
+
+            <label for="carPrice"><b>Preço</b></label>
+            <input type="number" id="carPrice" name="carPrice" required max="1000000" title="Preço">
+
+            <label for="carYear"><b>Ano do Carro</b></label>
+            <input type="number" id="carYear" name="carYear" required min="1985" max="2002">
+
+            <label for="petroleo"><b>Combustível</b></label>
+            <select size="1" name="petroleo" id="petroleo" required>
+                <option value="Gasolina">Gasolina</option>
+                <option value="Diesel">Diesel</option>
+                <option value="GPL">GPL</option>
+            </select>
+
+            <label for="caixa"><b>Caixa</b></label>
+            <select size="1" name="caixa" id="caixa" required>
+                <option value="Manual">Manual</option>
+                <option value="Automatico">Automático</option>
+            </select>
+
+            <label for="horsePower"><b>Potência</b></label>
+            <input type="number" id="horsePower" name="horsePower" required min="90" max="500">
+
+            <label for="displacement"><b>Cilindrada</b></label>
+            <input type="number" id="displacement" name="displacement" required max="3500">
+
+            <label for="numberKilometers"><b>Número de Quilómetros</b></label>
+            <input type="number" id="numberKilometers" name="numberKilometers" required max="2000000">
+
+            <label for="description"><b>Descrição do veículo</b></label>
+            <input type="text" name="description">
+
+            <label for="photos"><b>Fotografias</b></label>
+            <input type="file" name="photos" required>
+
+            <fieldset>
+                <legend><b>Localização</b></legend>
+                <label for="inputLat">Latitude:</label>
+                <input type="text" name="latitude" id="inputLat" readonly>
+
+                <label for="inputLng">Longitude:</label>
+                <input type="text" name="longitude" id="inputLng" readonly>
+
+                <button type="button" onclick="resetMap()">Reset Mapa</button>
+
+                <div id="map"></div>
+                <script type="module">
+                    import { initMapa, resetMap } from '/static/scripts/modules/mapas.js';
+                    initMapa();
+                </script>
+            </fieldset>
+
+            <input type="submit" name="Submit" value="Adicionar">
+            <input type="reset" name="Reset" value="Limpar" onclick="resetPesquisa()">
+        </fieldset>
+        <p style="text-align:center; margin-bottom: 0;"><a href="/">Voltar</a></p>
+    </form>
+</body>
+
+</html>
