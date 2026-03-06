@@ -50,9 +50,6 @@ app = Flask(__name__, static_url_path='/static', static_folder='static')
 CORS(app)
 app.url_map.strict_slashes = False
 
-# Isto supostamente faz com a cena de guardar as fotografias dos carros funcionar
-# Não faço ideia se isto funciona sempre e em todos os computadores
-
 app.config[ 'TEMPLATES_AUTO_RELOAD' ] = True
 
 app.config["SESSION_PERMANENT"] = False
@@ -893,4 +890,5 @@ def after_request(response):
 if __name__ == '__main__':
 #    mqtt_thread = threading.Thread(target=mqtt_client_loop, daemon=True)
 #    mqtt_thread.start()
+
     app.run(host="0.0.0.0", port=80, debug=True)
