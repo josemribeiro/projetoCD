@@ -6,9 +6,9 @@ Aplicação desenvolvida nas Unidades Curriculares de Programação Web e Comput
 
 ### Autores
 
-Dinis Carraça
-José Ribeiro
-José Feiteira
+- Dinis Carraça
+- José Ribeiro
+- José Feiteira
 
 ### Arquitetura do Projeto
 
