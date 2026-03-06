@@ -1,0 +1,85 @@
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/meuAnuncio.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/navbar.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/GlobalStyle.css">
+    <script type="module" src="/static/scripts/main.js"></script>
+    <title> Os Meus Anúncios</title>
+</head>
+
+<body onload="updatedLoggedInState()">
+    <nav class="navbar">
+        <div class="elementos-esquerda">
+            <ul>
+                <li><a href="/"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="/formAddCarro"><i class="fa-solid fa-plus"></i> Adicionar Chaço</a></li>
+                <li><a href="/formProcuraCarro"><i class="fa-solid fa-magnifying-glass"></i> Procurar Chaço</a></li>
+                <li><a href="/dashboard-cameras"><i class="fa-solid fa-video"></i> Dashboard Câmaras</a></li>
+            </ul>
+        </div>
+        <div class="elementos-direita">
+            <ul id="userOptions">
+                <li id="registarOp"><a href="/formRegistoT">Criar Conta</a></li>
+                <li id="loginOp"><a href="/formLogin" style="text-decoration:none">Login</a></li>
+                <li id="menuPerfil" class="dropdown" style="display: none;">
+                    <button>Meu Perfil</button>
+                    <div class="content">
+                        <a href="/formEditarPerfil"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
+                        <a href="/meusAnuncios"><i class="fa-solid fa-car"></i> Meus Anúncios</a>
+                        <a href="/doLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <div class="meusAnucios">
+        {% if carros %}
+        {% for currentCarro in carros %}
+        <div class="car-ad" id="carro-{{ currentCarro['id'] }}">
+            <div class="car-image">
+                <span>
+                    {% if currentCarro['fotografias'] %}
+                    <img src="/static/images/{{ currentCarro['fotografias'] }}" alt="Carro" width="150">
+                    {% else %}
+                    Sem Foto
+                    {% endif %}
+                </span>
+            </div>
+            <div class="car-details">
+                <div class="car-title">
+                    {{ currentCarro['marca'] }} {{ currentCarro['modelo'] }}
+                </div>
+                <div class="car-info">
+                    <i class="fa-solid fa-road"></i>
+                    <span>{{ currentCarro['numKilometers'] }}</span>
+                    <i class="fa-solid fa-gear"></i>
+                    <span>{{ currentCarro['caixa'] }}</span>
+                    <i class="fa-solid fa-horse"></i>
+                    <span id="potencia">{{ currentCarro['potencia'] }} CV </span>
+                    <i class="fa-solid fa-gas-pump"></i>
+                    <span>{{ currentCarro['combustivel'] }}</span>
+                    <i class="fa-regular fa-calendar"></i>
+                    <span>{{ currentCarro['ano'] }}</span>
+                </div>
+                <div class="car-price">
+                    <div class="price">{{ currentCarro['preco'] }}</div>
+                </div>
+            </div>
+            <div class="remover-anuncio">
+                <button onclick="removerAnuncio('{{ currentCarro['id'] }}')" class="botao-delete">Apagar
+                    Anúncio</button>
+            </div>
+        </div>
+        {% endfor %}
+        {% else %}
+        <p id="no-anuncios">Não possui anuncios publicados.</p>
+        {% endif %}
+    </div>
+
+</body>
+
+</html>

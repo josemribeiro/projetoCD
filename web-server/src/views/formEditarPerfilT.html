@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<meta title="Auto-Chaço">
+	<title> Editar Perfil </title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<script type="module" src="/static/scripts/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/styles/editarperfil.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/GlobalStyle.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/navbar.css">
+</head>
+
+<body onload="updatedLoggedInState()">
+	<nav class="navbar">
+        <div class="elementos-esquerda">
+            <ul>
+                <li><a href="/"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="/formAddCarro"><i class="fa-solid fa-plus"></i> Adicionar Chaço</a></li>
+                <li><a href="/formProcuraCarro"><i class="fa-solid fa-magnifying-glass"></i> Procurar Chaço</a></li>
+                <li><a href="/dashboard-cameras"><i class="fa-solid fa-video"></i> Dashboard Câmaras</a></li>
+            </ul>
+        </div>
+        <div class="elementos-direita">
+            <ul id="userOptions">
+                <li id="registarOp"><a href="/formRegistoT">Criar Conta</a></li>
+                <li id="loginOp"><a href="/formLogin" style="text-decoration:none">Login</a></li>
+                <li id="menuPerfil" class="dropdown" style="display: none;">
+                    <button>Meu Perfil</button>
+                    <div class="content">
+                        <a href="/formEditarPerfil"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
+                        <a href="/meusAnuncios"><i class="fa-solid fa-car"></i> Meus Anúncios</a>
+                        <a href="/doLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+	
+	<!-- Formulário de Edição -->
+	<form action="/doEditarPerfil" method="POST" name="FormEditarFerfil" id="formEPT" enctype="multipart/form-data"
+		onsubmit="return validarFormEdit(event)">
+		<div id="form-titulo">
+			<b>
+				<p>Editar Perfil</p>
+			</b>
+		</div>
+		<!-- Secção de Dados Atuais -->
+		<div id="dadosAtuais">
+			<div id="dadosAtuais-titulo">
+				<p>Dados Atuais</p>
+			</div>
+			<b>
+				<p>Nome e Apelido: <span id="nomeAtual">{{ conta['name'] }}</span> <span id="nomeAtual">{{
+						conta['surname'] }}</span></p>
+			</b>
+			<b>
+				<p>Email: <span id="emailAtual">{{ conta['email'] }}</span></p>
+			</b>
+			<b>
+				<p>Morada : <span id="moradaAtual">{{ conta['morada']['cod-postal']}}, {{
+						conta['morada']['concelho'] }}, {{conta['morada']['distrito']}}</span></p>
+			</b>
+			<b>
+				<p>Telefone: <span id="telefoneAtual">{{ conta['phoneNumber'] }}</span></p>
+			</b>
+			<b>
+				<p>Tipo: <span id="tipoAtual">{{ conta['tipo'] }}</span></p>
+			</b>
+		</div>
+
+		<hr>
+
+		<!-- Campos de Edição -->
+		<b>
+			<p> Novo nome: <input type="text" name="novoNome" id="novoNome" placeholder="Introduza o novo nome"></p>
+		</b>
+		<b>
+			<p> Novo apelido: <input type="text" name="novoSurname" id="novoSurname"
+					placeholder="Introduza o novo apelido"></p>
+		</b>
+		<b>
+			<p> Novo email: <input type="text" name="novoEmail" id="novoEmail" pattern="{{emailRegEx}}"
+					placeholder="Introduza o novo email"></p>
+		</b>
+		<b>
+			<p> Novo número de telefone: <input type="number" name="novoPhoneNumber" id="novoPhoneNumber"
+					placeholder="Introduza o novo número de telefone"></p>
+		</b>
+
+		<!-- Secção de Morada -->
+		<div>
+			<div><strong>Morada:</strong></div>
+			<table>
+				<tr>
+					<td><label for="district">Distrito:</label></td>
+					<td>
+						<select size="1" onchange="SelectDistrictChange()" name="districtName" id="district" required>
+							<option value="-1">Selecione um distrito</option>
+							{% for currentDistrict in districts %}
+							<option value="{{ currentDistrict['ID'] }}">{{ currentDistrict['Valor'] }}</option>
+							{% endfor %}
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="county">Concelho:</label></td>
+					<td>
+						<select size="1" onchange="SelectCountyChange()" name="countyName" id="county" disabled
+							required>
+							<option value="-1">Selecione um concelho</option>
+						</select>
+					</td>
+				</tr>
+				<tr>
+					<td><label for="zip">Código-Postal:</label></td>
+					<td>
+						<select size="1" name="zipName" id="zip" disabled required>
+							<option value="-1">Selecione um Código-Postal</option>
+						</select>
+					</td>
+				</tr>
+			</table>
+		</div>
+
+		<!-- Secção de Tipo -->
+		<b>
+			<p> Tipo:
+				<select name="novoTipo" id="novoTipo">
+					<option value="Particular">Particular</option>
+					<option value="Stand">Stand</option>
+				</select>
+			</p>
+		</b>
+
+		<div style="margin-left: 0%;">
+			<input type="submit" name="Submit" value=" Editar ">
+			<input type="reset" name="Reset" value="Limpar" onclick="resetBordersInputEdit()">
+		</div>
+		<input type="text" style="display: none;" name="infoEditada" id="infoEditada">
+		<p style="text-align:center; margin-bottom: 0;"><a href="/">Voltar</a></p>
+	</form>
+	<div class="apagar-conta">
+		<button onclick="removerConta('{{ conta['email'] }}')" class="botao-delete">Apagar conta</button>
+	</div>
+</body>
+
+</html>

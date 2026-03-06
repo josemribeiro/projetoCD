@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<title>Menu</title>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<script type="module" src="/static/scripts/main.js"></script>
+	<link rel="stylesheet" type="text/css" href="/static/styles/GlobalStyle.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/meuAnuncio.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/navbar.css">
+
+	<script type="text/javascript" src="/static/jwplayer6/jwplayer.js"> </script>
+	<script type="text/javascript">
+		function initVideo(containerID) {
+			jwplayer(containerID).setup({
+				allowfullscreen: false,
+				allowscriptaccess: "always",
+				volume: 0,
+				mute: true,
+				primary: "flash",
+				autostart: "false",
+				width: "auto",
+				height: "400px",
+				stretching: 'exactfit',
+				author: "Grupo 6",
+				date: "January 21 2025 15:25:27",
+				playlist: [
+					{
+						title: "PROMOVIDO",
+						description: "Video promovido",
+						image: "/static/images/carro1.jpg",
+						sources: [
+							{
+								file: "/static/images/pagInicial.mp4",
+								type: "mp4"
+							}
+						],
+						tracks: [
+							{
+								file: "/static/VTT/Sprites/thumbnails.vtt",
+								kind: "thumbnails"
+							}
+						]
+					}
+				]
+			});
+		}
+	</script>
+
+</head>
+
+<body onload="updatedLoggedInState(), initVideo( 'video' )" style="background-color: white;">
+	<nav class="navbar">
+        <div class="elementos-esquerda">
+            <ul>
+                <li><a href="/"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="/formAddCarro"><i class="fa-solid fa-plus"></i> Adicionar Chaço</a></li>
+                <li><a href="/formProcuraCarro"><i class="fa-solid fa-magnifying-glass"></i> Procurar Chaço</a></li>
+                <li><a href="/dashboard-cameras"><i class="fa-solid fa-video"></i> Dashboard Câmaras</a></li>
+            </ul>
+        </div>
+        <div class="elementos-direita">
+            <ul id="userOptions">
+                <li id="registarOp"><a href="/formRegistoT">Criar Conta</a></li>
+                <li id="loginOp"><a href="/formLogin" style="text-decoration:none">Login</a></li>
+                <li id="menuPerfil" class="dropdown" style="display: none;">
+                    <button>Meu Perfil</button>
+                    <div class="content">
+                        <a href="/formEditarPerfil"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
+                        <a href="/meusAnuncios"><i class="fa-solid fa-car"></i> Meus Anúncios</a>
+                        <a href="/doLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+	<div class="video-caixa" id="video-caixa">
+		<div id="video">
+
+		</div>
+
+	</div>
+	<p
+		style="font-size: larger; color:black; text-align: center; position: fixed; bottom: 0; width: 100%;">
+		<b>Made By: <a href="https://www.youtube.com/watch?v=xvFZjo5PgG0" target="_blank"
+				style="color:black; text-decoration:none">Grupo 6</a></b>
+	</p>
+
+</body>
+
+</html>

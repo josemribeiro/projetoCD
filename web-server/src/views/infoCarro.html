@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta title="Auto-Chaço">
+    <title>Chaço Virtual</title>
+    <script type="module" src="/static/scripts/main.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.css" /> 
+    <link rel="stylesheet" href="https://unpkg.com/leaflet.markercluster@1.4.1/dist/MarkerCluster.Default.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="/static/styles/infoPesquisa.css">
+    <link rel="stylesheet" href="/static/styles/navbar.css">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://unpkg.com/leaflet.markercluster@1.4.1/dist/leaflet.markercluster.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body onload="updatedLoggedInState()">
+    <!-- Modern Navbar with Original Template Logic -->
+    <nav class="navbar">
+        <div class="elementos-esquerda">
+            <ul>
+                <li><a href="/"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="/formAddCarro"><i class="fa-solid fa-plus"></i> Adicionar Chaço</a></li>
+                <li><a href="/formProcuraCarro"><i class="fa-solid fa-magnifying-glass"></i> Procurar Chaço</a></li>
+                <li><a href="/dashboard-cameras"><i class="fa-solid fa-video"></i> Dashboard Câmaras</a></li>
+            </ul>
+        </div>
+        <div class="elementos-direita">
+            <ul id="userOptions">
+                <li id="registarOp"><a href="/formRegistoT">Criar Conta</a></li>
+                <li id="loginOp"><a href="/formLogin" style="text-decoration:none">Login</a></li>
+                <li id="menuPerfil" class="dropdown" style="display: none;">
+                    <button>Meu Perfil</button>
+                    <div class="content">
+                        <a href="/formEditarPerfil"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
+                        <a href="/meusAnuncios"><i class="fa-solid fa-car"></i> Meus Anúncios</a>
+                        <a href="/doLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <!-- Main Content with Template Logic -->
+    <div class="anuncios-encontrados">
+        <div class="meusAnucios">
+            {% for currentCarro in carros %}
+            <div class="car-ad" data-car-id="{{ loop.index }}">
+                <div class="car-image">
+                    <span>
+                        {% if currentCarro['fotografias'] %}
+                        <img src="/static/images/{{ currentCarro['fotografias'] }}" alt="Carro" class="car-image" width="400px">
+                        {% else %}
+                        <i class="fa-solid fa-image" style="font-size: 3rem; margin-bottom: 1rem; display: block; color: var(--text-muted);"></i>
+                        Sem Foto
+                        {% endif %}
+                    </span>
+                </div>
+                <div class="car-details">
+                    <div class="car-title"> 
+                        {{ currentCarro['marca'] }} {{ currentCarro['modelo'] }}  
+                    </div>
+                    <div class="car-info">
+                        <div>
+                            <i class="fa-solid fa-road"></i>
+                            <span>{{ currentCarro['numKilometers'] }}</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-horse"></i>
+                            <span id="potencia">{{ currentCarro['potencia'] }} CV</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-gear"></i>
+                            <span>{{ currentCarro['cilindrada'] }} CC</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-gas-pump"></i>
+                            <span>{{ currentCarro['combustivel'] }}</span>
+                        </div>
+                        <div>
+                            <i class="fa-regular fa-calendar"></i>
+                            <span>{{ currentCarro['ano'] }}</span>
+                        </div>
+                        <div>
+                            <i class="fa-solid fa-wrench"></i>
+                            <span>{{ currentCarro['caixa'] }}</span>
+                        </div>
+                    </div>
+                    <div class="car-description">{{ currentCarro['descricao'] }}</div>
+                    <div class="car-price">
+                        <div class="price">{{ currentCarro['preco'] }}</div>
+                    </div>
+                    
+                    <div class="car-contact">
+                        <div class="dados-contato" id="dados-contactos">
+                            <a href="mailto:{{ currentCarro['email'] }}" id="mail-contacto">
+                                <i class="fa-solid fa-envelope"></i> 
+                                {{ currentCarro['email'] }}
+                            </a>
+                            <span>
+                                <i class="fa-solid fa-phone"></i> 
+                                {{ currentCarro['telemovel'] }}
+                            </span>
+                        </div>
+                    </div>
+
+                    <div class="car-location">
+                        <div id="map-{{ loop.index }}" class="mapAnuncio"></div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    <script type="module">
+        import { showMapa } from '/static/scripts/modules/mapas.js';
+        const carros = {{ carros|tojson }};
+        carros.forEach((carro, index) => {
+            console.log('Latitude:', carro.latitude, 'Longitude:', carro.longitude);
+            showMapa(carro.latitude, carro.longitude, `map-${index + 1}`);
+        });
+    </script>
+</body>
+</html>

@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>Criar Conta</title>
+    <script type="module" src="/static/scripts/main.js"></script>
+	<link REL="stylesheet" TYPE="text/css" href="/static/styles/forms.css">
+    <link REL="stylesheet" TYPE="text/css" href="/static/styles/GlobalStyle.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/navbar.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="elementos-esquerda">
+            <ul>
+                <li><a href="/"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="/formAddCarro"><i class="fa-solid fa-plus"></i>  Adicionar Chaço</a></li>
+                <li><a href="/formProcuraCarro"><i class="fa-solid fa-magnifying-glass"></i>  Procurar Chaço</a></li>
+            </ul>
+        </div>
+        <div class="elementos-direita">
+            <ul id="userOptions">
+                <li id="registarOp"><a href="/formRegistoT">Criar Conta</a></li>
+                <li id="loginOp"><a href="/formLogin" style="text-decoration:none">Login</a></li>
+                <li id="menuPerfil" class="dropdown" style="display: none;">
+                    <button>Meu Perfil</button>
+                    <div class="content">
+                        <a href="/formEditarPerfil"><i class="fa-solid fa-pen-to-square"></i>  Editar Perfil</a>
+                        <a href="/meusAnuncios"><i class="fa-solid fa-car"></i>  Meus Anúncios</a>
+                        <a href="/doLogout"><i class="fa-solid fa-right-from-bracket"></i>  Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+    <form action="/doRegisto" method="POST" name="FormRegisto" id="formRT" onsubmit="return validarFormRegisto(event)">
+        <fieldset>
+            <legend id="criar-conta">Criar Conta</legend>
+
+            <label for="firstName">Nome:*</label>
+            <input type="text" id="firstName" name="firstName" required>
+
+            <label for="surName">Apelido:*</label>
+            <input type="text" id="surName" name="surName" required>
+
+            <label for="opcao">Tipo:*</label>
+            <div class="radio-group">
+                <label for="stand">
+                    <input type="radio" id="stand" name="opcao" value="Stand" required> Stand
+                </label>
+                <label for="sozinho">
+                    <input type="radio" id="Particular" name="opcao" value="Particular"> Particular
+                </label>
+            </div>
+
+            <div>
+                <div><strong>Morada*</strong></div>
+                <table>
+                    <tr>
+                        <td><label for="district">Distrito:</label></td>
+                        <td>
+                            <select size="1" onchange="SelectDistrictChange()" name="districtName" id="district" required>
+                                <option value="-1">Selecione um distrito</option>
+                                {% for currentDistrict in districts %}
+                                <option value="{{ currentDistrict['ID'] }}">{{ currentDistrict['Valor'] }}</option>
+                                {% endfor %}
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="county">Concelho:</label></td>
+                        <td>
+                            <select size="1" onchange="SelectCountyChange()" name="countyName" id="county" disabled required>
+                                <option value="-1">Selecione um concelho</option>
+                            </select>
+                        </td>
+                    </tr>
+                    <tr>
+                        <td><label for="zip">Código-Postal:</label></td>
+                        <td>
+                            <select size="1" name="zipName" id="zip" disabled required>
+                                <option value="-1">Selecione um Código-Postal</option>
+                            </select>
+                        </td>
+                    </tr>
+                </table>
+            </div>
+
+            <label for="emailID">Email:*</label>
+            <input type="email" id="emailID" name="emailName" required pattern="{{emailRegEx}}">
+
+            <label for="phoneID">Telemóvel:*</label>
+            <input type="number" id="phoneID" name="phoneName" required>
+
+            <label for="passwordID">Palavra chave:*</label>
+            <input type="password" id="passwordID" name="passwordName" required pattern="{{ passwordRegEx }}" title="Entre 3 e 7 caracteres">
+
+            <label for="passwordIdRpt">Repita a Palavra chave:*</label>
+            <input type="password" id="passwordIdRpt" name="passwordCheck" required pattern="{{ passwordRegEx }}" title="Entre 3 e 7 caracteres">
+
+            <input type="submit" name="Submit" value="Enviar">
+            <input type="reset" name="Reset" value="Limpar">
+        </fieldset>
+		<p style="text-align:center; margin-bottom: 0; margin-left: 7%;"><a href="/">Voltar</a></p>
+    </form>
+</body>
+</html>

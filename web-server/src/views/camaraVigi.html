@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="pt">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard de Câmaras</title>
+    <script type="module" src="/static/scripts/main.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" type="text/css" href="/static/styles/cameraVigi.css">
+    <link rel="stylesheet" type="text/css" href="/static/styles/navbar.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body onload="updatedLoggedInState()">
+    <nav class="navbar">
+        <div class="elementos-esquerda">
+            <ul>
+                <li><a href="/"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="/formAddCarro"><i class="fa-solid fa-plus"></i> Adicionar Chaço</a></li>
+                <li><a href="/formProcuraCarro"><i class="fa-solid fa-magnifying-glass"></i> Procurar Chaço</a></li>
+                <li><a href="/dashboard-cameras"><i class="fa-solid fa-video"></i> Dashboard Câmaras</a></li>
+            </ul>
+        </div>
+        <div class="elementos-direita">
+            <ul id="userOptions">
+                <li id="registarOp"><a href="/formRegistoT">Criar Conta</a></li>
+                <li id="loginOp"><a href="/formLogin" style="text-decoration:none">Login</a></li>
+                <li id="menuPerfil" class="dropdown" style="display: none;">
+                    <button>Meu Perfil</button>
+                    <div class="content">
+                        <a href="/formEditarPerfil"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
+                        <a href="/meusAnuncios"><i class="fa-solid fa-car"></i> Meus Anúncios</a>
+                        <a href="/doLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+
+    <div class="main-content">
+        <div class="container">
+            <div class="dashboard-header">
+                <h1><i class="fa-solid fa-video"></i> Dashboard de Câmaras</h1>
+                <p>Monitorização em tempo real das câmaras dos carros</p>
+            </div>
+
+            <div class="controls-card">
+                <div class="controls-grid">
+                    <div class="control-group">
+                        <label for="vehicleSelect">
+                            <i class="fa-solid fa-car"></i>
+                            Selecionar  Anúncio:
+                        </label>
+                        <select id="vehicleSelect">
+                            {% for carro in carros %}
+                            <option value="{{ carro['addNumber'] }}"> Anúncio Nº{{ carro['addNumber'] + 1}} - {{ carro['marca'] }} {{ carro['modelo'] }}</option>
+                            {% endfor %}
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <label for="connectionType">
+                            <i class="fa-solid fa-plug"></i>
+                            Tipo de Conexão:
+                        </label>
+                        <select id="connectionType">
+                            <option value="mqtt">MQTT</option>
+                            <option value="rest">REST</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group hidden" id="apiKeyGroup">
+                        <label for="apiKey">
+                            <i class="fa-solid fa-key"></i>
+                            Chave:
+                        </label>
+                        <input type="password" id="apiKey" placeholder="Introduza a chave">
+                    </div>
+
+                    <div class="control-group">
+                        <label for="cameraSelect">
+                            <i class="fa-solid fa-camera"></i>
+                            Selecionar Câmara:
+                        </label>
+                        <select id="cameraSelect">
+                            <option value="1">Câmara 1</option>
+                            <option value="2">Câmara 2</option>
+                        </select>
+                    </div>
+
+                    <div class="control-group">
+                        <button class="btn btn-primary" id="connectBtn">
+                            <i class="fa-solid fa-play"></i>
+                            Conectar
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="camera-view-card">
+                <div class="camera-container">
+                    <div class="camera-display">
+                        <div class="camera-placeholder" id="cameraPlaceholder">
+                            <i class="fa-solid fa-video-slash"></i>
+                            <span>Clique em "Conectar" para ver o feed da câmara</span>
+                        </div>
+                        <img id="cameraImage" class="camera-image hidden" alt="Feed da câmara">
+                    </div>
+                    
+                    <div class="camera-info">
+                        <div class="info-item">
+                            <i class="fa-solid fa-car"></i>
+                            <span class="info-label">Veículo:</span>
+                            <span class="info-value" id="currentVehicle">BMW X5 - ABC-123</span>
+                        </div>
+
+                        <div class="info-item">
+                            <i class="fa-solid fa-camera"></i>
+                            <span class="info-label">Câmara:</span>
+                            <span class="info-value" id="currentCamera">1</span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fa-solid fa-signal"></i>
+                            <span class="info-label">Estado:</span>
+                            <span class="status disconnected" id="connectionStatus">
+                                <span class="status-dot"></span>
+                                Desconectado
+                            </span>
+                        </div>
+                        
+                        <div class="info-item">
+                            <i class="fa-solid fa-clock"></i>
+                            <span class="info-label">Última atualização:</span>
+                            <span class="info-value" id="lastUpdate">--</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

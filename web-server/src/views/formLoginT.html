@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="pt">
+
+<head>
+	<title>Login</title>
+	<meta http-equiv='Content-Type' content='text/html; charset=utf-8'>
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+	<link REL="stylesheet" TYPE="text/css" href="/static/styles/GlobalStyle.css">
+	<link REL="stylesheet" TYPE="text/css" href="/static/styles/forms.css">
+	<link rel="stylesheet" type="text/css" href="/static/styles/navbar.css">
+	<script type="module" src="/static/scripts/main.js"></script>
+</head>
+
+<body>
+	{% if message %}
+	<script>showPopup("{{ message }}");</script>
+	{% endif %}
+	<nav class="navbar">
+        <div class="elementos-esquerda">
+            <ul>
+                <li><a href="/"><i class="fa-solid fa-house"></i></a></li>
+                <li><a href="/formAddCarro"><i class="fa-solid fa-plus"></i> Adicionar Chaço</a></li>
+                <li><a href="/formProcuraCarro"><i class="fa-solid fa-magnifying-glass"></i> Procurar Chaço</a></li>
+                <li><a href="/dashboard-cameras"><i class="fa-solid fa-video"></i> Dashboard Câmaras</a></li>
+            </ul>
+        </div>
+        <div class="elementos-direita">
+            <ul id="userOptions">
+                <li id="registarOp"><a href="/formRegistoT">Criar Conta</a></li>
+                <li id="loginOp"><a href="/formLogin" style="text-decoration:none">Login</a></li>
+                <li id="menuPerfil" class="dropdown" style="display: none;">
+                    <button>Meu Perfil</button>
+                    <div class="content">
+                        <a href="/formEditarPerfil"><i class="fa-solid fa-pen-to-square"></i> Editar Perfil</a>
+                        <a href="/meusAnuncios"><i class="fa-solid fa-car"></i> Meus Anúncios</a>
+                        <a href="/doLogout"><i class="fa-solid fa-right-from-bracket"></i> Logout</a>
+                    </div>
+                </li>
+            </ul>
+        </div>
+    </nav>
+	
+	<form action="/doLogin" method="POST" name="FormLogin" id="formRT" style="text-align: center;"
+		onsubmit="return FormLoginValidator(event)">
+		<h2>
+			Dados de Login
+		</h2>
+		<label for="emailID">Email:</label><br>
+		<input type="text" id="email" name="email" required title="Preencha este campo">
+		<br>
+
+		<label for="passwordID">Palavra chave:</label><br>
+		<input type="password" id="passwordID" name="passwordName" required title="Entre 3 e 7 caracteres">
+		<br>
+
+		<br>
+		<input type="submit" name="Submit" value="Enviar"> <input type="reset" name="Reset" value="Limpar">
+		<p style="text-align:center; margin-bottom: 0; margin-left: 7%;"><a href="/">Voltar</a></p>
+	</form>
+
+</body>
+
+</html>
