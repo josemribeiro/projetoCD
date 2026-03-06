@@ -1,5 +1,15 @@
 # ChaçoVirtual
 
+Aplicação desenvolvida nas Unidades Curriculares de Programação Web e Computação Distribuída.
+
+---
+
+### Autores
+
+Dinis Carraça
+José Ribeiro
+José Feiteira
+
 ### Arquitetura do Projeto
 
 O projeto está dividido em dois serviços principais:
