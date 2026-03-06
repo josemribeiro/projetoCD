@@ -10,6 +10,8 @@ Aplicação desenvolvida nas Unidades Curriculares de Programação Web e Comput
 - José Ribeiro
 - José Feiteira
 
+Classificação: 14.65 (0-20)
+
 ### Arquitetura do Projeto
 
 O projeto está dividido em dois serviços principais:
