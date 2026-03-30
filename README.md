@@ -54,7 +54,7 @@ project
 ### Instalação
 
 ```bash
-git clone https://github.com/yourusername/project-name.git
+git clone https://github.com/yourusername/projetoCD.git
 cd project-name
 ```
 
